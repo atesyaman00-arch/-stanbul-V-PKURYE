@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gebze & İstanbul VIP Kurye | Honda Forza 250 ile Hızlı Teslimat</title>
+    <style>
+        :root {
+            --primary-color: #0f172a;
+            --accent-color: #dc2626;
+            --whatsapp-color: #25d366;
+            --light-color: #f8fafc;
+            --dark-color: #1e293b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            color: var(--dark-color);
+            background-color: #fff;
+            line-height: 1.6;
+        }
+
+        .top-bar {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 5%;
+            font-size: 0.9rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top-bar a {
+            color: white;
+            text-decoration: none;
+        }
+
+        header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo span {
+            font-size: 0.75rem;
+            color: var(--accent-color);
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .whatsapp-btn-nav {
+            background-color: var(--whatsapp-color);
+            color: white !important;
+            padding: 10px 18px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hero {
+            background: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.85)), url('https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+            color: white;
+            text-align: center;
+            padding: 120px 20px;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero h1 span {
+            color: var(--accent-color);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            color: #cbd5e1;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 14px 28px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #b91c1c;
+        }
+
+        .btn-whatsapp {
+            background-color: var(--whatsapp-color);
+            color: white;
+        }
+
+        .btn-whatsapp:hover {
+            background-color: #16a34a;
+        }
+
+        section {
+            padding: 70px 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 2.2rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .section-title p {
+            color: #64748b;
+        }
+
+        /* Fiyat Hesaplama Aracı Tasarımı */
+        .calculator-section {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            color: white;
+            padding: 60px 20px;
+            margin: 40px 5%;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .calculator-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #e2e8f0;
+        }
+
+        .form-group select, .form-group input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 5px;
+            border: 1px solid #475569;
+            background: #334155;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .result-box {
+            background: #0f172a;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 25px;
+            border: 2px solid var(--accent-color);
+        }
+
+        .result-box h3 {
+            font-size: 1.5rem;
+            color: #f8fafc;
+            margin-bottom: 10px;
+        }
+
+        .price-output {
+            font-size: 2rem;
+            color: #38bdf8;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: var(--light-color);
+            padding: 35px 25px;
+            border-radius: 10px;
+            text-align: center;
+            border-bottom: 4px solid var(--accent-color);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+
+        .feature-card h3 {
+            margin-bottom: 15px;
+            font-size: 1.25rem;
+            color: var(--primary-color);
+        }
+
+        .feature-card p {
+            color: #64748b;
+            font-size: 0.95rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .service-box {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+            transition: transform 0.3s;
+        }
+
+        .service-box:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+        }
+
+        .service-box h3 {
+            font-size: 1.25rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .service-box p {
+            color: #64748b;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        .cta-banner {
+            background: linear-gradient(135deg, var(--primary-color), #334155);
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+            border-radius: 12px;
+            margin: 40px 5%;
+        }
+
+        .cta-banner h2 {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+        }
+
+        .cta-banner p {
+            max-width: 600px;
+            margin: 0 auto 30px auto;
+            color: #cbd5e1;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .contact-box {
+            background: var(--light-color);
+            padding: 40px;
+            border-radius: 10px;
+        }
+
+        .contact-box h3 {
+            margin-bottom: 25px;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+        }
+
+        .contact-box p {
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: #94a3b8;
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 0.9rem;
+        }
+
+        footer p {
+            margin-bottom: 5px;
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background-color: var(--whatsapp-color);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            z-index: 1000;
+            transition: transform 0.3s;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+        }
+
+        @media(max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            .hero h1 {
+                font-size: 2.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Üst Bilgi Barı -->
+    <div class="top-bar">
+        <div>
+            📍 Gebze Odaklı | İstanbul & Yakın İllere Küçük Paket & Evrak Dağıtımı
+        </div>
+        <div>
+            <a href="tel:05558973449">📞 0555 897 34 49</a>
+        </div>
+    </div>
+
+    <!-- Menü -->
+    <header>
+        <div class="navbar">
+            <a href="#" class="logo">
+                GEBZE VIP KURYE
+                <span>HONDA FORZA 250 İLE HIZLI TESLİMAT</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#anasayfa">Anasayfa</a></li>
+                <li><a href="#hesapla">Fiyat Hesapla</a></li>
+                <li><a href="#hizmetler">Hizmetlerimiz</a></li>
+                <li><a href="#neden-biz">Neden Biz?</a></li>
+                <li><a href="#iletisim">İletişim</a></li>
+                <li><a href="https://wa.me/905558973449?text=Merhaba,%20Gebze'den%20gönderim%20için%20kurye%20çağırmak%20istiyorum." target="_blank" class="whatsapp-btn-nav">💬 WhatsApp'tan Yaz</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Manşet (Hero) -->
+    <section class="hero" id="anasayfa">
+        <h1>Gebze'den İstanbul ve Yakın İllere <span>VIP Kurye</span> Hizmeti</h1>
+        <p>Honda Forza 250 konforu ve hızıyla; küçük paketleriniz, kıymetli evraklarınız ve özel gönderileriniz güvenle kapıdan kapıya teslim edilir!</p>
+        <div class="hero-buttons">
+            <a href="#hesapla" class="btn btn-primary">🧮 Fiyat Hesapla</a>
+            <a href="https://wa.me/905558973449?text=Merhaba,%20paketim%20için%20fiyat%20öğrenmek%20istiyorum." target="_blank" class="btn btn-whatsapp">💬 WhatsApp ile Fiyat Al</a>
+        </div>
+    </section>
+
+    <!-- AKILLI FİYAT HESAPLAMA BÖLÜMÜ -->
+    <section id="hesapla">
+        <div class="calculator-section">
+            <div class="section-title" style="margin-bottom: 25px;">
+                <h2 style="color: white;">Canlı Kurye Fiyat Hesaplayıcı</h2>
+                <p style="color: #94a3b8;">Güzergahınızı seçerek tahmini taşıma ücretinizi anında hesaplayın</p>
+            </div>
+            
+            <div class="calculator-container">
+                <div class="form-group">
+                    <label for="rota">Teslimat Güzergahı Seçin:</label>
+                    <select id="rota" onchange="fiyatHesapla()">
+                        <option value="gebze-ici">Gebze İçi Kısa Mesafe</option>
+                        <option value="gebze-istanbul-anadolu">Gebze ➔ İstanbul Anadolu Yakası</option>
+                        <option value="gebze-istanbul-avrupa">Gebze ➔ İstanbul Avrupa Yakası</option>
+                        <option value="gebze-yalova">Gebze ➔ Yalova</option>
+                        <option value="gebze-sakarya">Gebze ➔ Sakarya / İzmit</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="paketTipi">Paket Boyutu / Özelliği:</label>
+                    <select id="paketTipi" onchange="fiyatHesapla()">
+                        <option value="evrak">Zarf / Kıymetli Evrak (Standart)</option>
+                        <option value="kucuk-kutu">Küçük Kutu / Hediye Paket</option>
+                        <option value="acil-vip">Acil VIP (Öncelikli Ekspres)</option>
+                    </select>
+                </div>
+
+                <div class="result-box">
+                    <h3>Tahmini Taşıma Ücreti</h3>
+                    <div class="price-output" id="tahminiFiyat">350 TL</div>
+                    <a id="whatsappTeklifBtn" href="https://wa.me/905558973449?text=Merhaba,%20Gebze-İçi%20kurye%20hizmeti%20için%20fiyat%20hesapladım:%20350%20TL.%20Kurye%20çağırmak%20istiyorum." target="_blank" class="btn btn-whatsapp" style="width: 100%; text-align: center;">💬 Bu Fiyatla WhatsApp'tan Sipariş Ver</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Neden Forza 250 & Bölgesel Avantaj -->
+    <section id="neden-biz">
+        <div class="section-title">
+            <h2>Neden Bizimle Çalışmalısınız?</h2>
+            <p>Güçlü motorumuz ve bölge hakimiyetimizle zaman kazandırıyoruz</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3>🏍️ Honda Forza 250 Gücü</h3>
+                <p>Güçlü motoru ve otoban performansı sayesinde Gebze - İstanbul arası hatlarda trafiğe takılmadan en seri şekilde yol alıyoruz.</p>
+            </div>
+            <div class="feature-card">
+                <h3>📦 Küçük Paket & Evrak Uzmanlığı</h3>
+                <p>Küçük ebatlı kargolarınız, numuneleriniz ve önemli evraklarınız özel bölmelerimizde zarar görmeden taşınır.</p>
+            </div>
+            <div class="feature-card">
+                <h3>⚡ Şehirlerarası Hızlı Rota</h3>
+                <p>Gebze merkezli olarak İstanbul Anadolu/Avrupa yakası ve yakın çevre illere direkt teslimat imkanı sunuyoruz.</p>
+            </div>
+            <div class="feature-card">
+                <h3>🔒 Güvenilir & Kişisel Hizmet</h3>
+                <p>Gönderiniz direkt elden ele, başkasına aktarılmadan güvenle alıcısına ulaştırılır.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hizmet Alanları -->
+    <section id="hizmetler" style="background-color: var(--light-color);">
+        <div class="section-title">
+            <h2>Hizmet Bölgelerimiz ve Çözümler</h2>
+            <p>İhtiyacınıza uygun esnek kurye seçenekleri</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-box">
+                <h3>🏙️ Gebze - İstanbul Hattı</h3>
+                <p>Gebze Organize Sanayi bölgelerinden veya merkezden İstanbul'un tüm ilçelerine acil küçük paket ve evrak dağıtımı.</p>
+                <a href="https://wa.me/905558973449?text=Gebze-İstanbul%20arası%20kurye%20için%20yazıyorum." target="_blank" class="btn btn-primary" style="width:100%; text-align:center; padding: 10px;">Fiyat Sor</a>
+            </div>
+            <div class="service-box">
+                <h3>⚡ Yakın İller Ekspres</h3>
+                <p>Kocaeli, İstanbul ve çevre illere zamanla yarışan acil teslimatlar için doğrudan adres odaklı taşımacılık.</p>
+                <a href="https://wa.me/905558973449?text=Şehirlerarası%20kurye%20hizmeti%20almak%20istiyorum." target="_blank" class="btn btn-primary" style="width:100%; text-align:center; padding: 10px;">Fiyat Sor</a>
+            </div>
+            <div class="service-box">
+                <h3>📦 Özel & Hassas Paket</h3>
+                <p>Kırılgan olabilecek küçük teknolojik ürünler, hediyeler veya gizli evraklar için özenli VIP kurye servisi.</p>
+                <a href="https://wa.me/905558973449?text=Özel%20paket%20taşımacılığı%20için%20bilgi%20istiyorum." target="_blank" class="btn btn-primary" style="width:100%; text-align:center; padding: 10px;">Fiyat Sor</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Banner -->
+    <div class="cta-banner">
+        <h2>Gönderilecek Bir Paketiniz mi Var?</h2>
+        <p>Alınacak ve bırakılacak adresleri WhatsApp'tan yazın, hemen hesaplayıp size en uygun fiyatı verelim.</p>
+        <a href="https://wa.me/905558973449?text=Merhaba,%20paketim%20var,%20kurye%20çağırmak%20istiyorum." target="_blank" class="btn btn-whatsapp" style="font-size: 1.1rem; padding: 15px 35px;">💬 WhatsApp ile Kurye Çağır</a>
+    </div>
+
+    <!-- İletişim -->
+    <section id="iletisim">
+        <div class="section-title">
+            <h2>İletişim Bilgileri</h2>
+            <p>Hızlı teklif ve kurye talebi için doğrudan bana ulaşın</p>
+        </div>
+        <div class="contact-container">
+            <div class="contact-box">
+                <h3>İletişim Kanalları</h3>
+                <p>📞 <strong>Telefon:</strong> 0555 897 34 49</p>
+                <p>💬 <strong>WhatsApp:</strong> 0555 897 34 49</p>
+                <p>📍 <strong>Merkez:</strong> Gebze / Kocaeli</p>
+                <p>🚗 <strong>Hizmet Alanı:</strong> Gebze, İstanbul ve Yakın İller</p>
+                <a href="https://wa.me/905558973449" target="_blank" class="btn btn-whatsapp" style="display:block; text-align:center; margin-top:20px;">Hemen WhatsApp'tan Yaz</a>
+            </div>
+            <div class="contact-box" style="display:flex; align-items:center; justify-content:center; background:#e2e8f0; text-align:center;">
+                <p style="color:#475569;">📍 <strong>Honda Forza 250 ile Sahadayım!</strong><br>Gebze'den yola çıkıp paketlerinizi en güvenli şekilde ulaştırıyorum.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Gebze VIP Kurye | Honda Forza 250 Taşımacılık. Tüm Hakları Saklıdır.</p>
+        <p>Gebze, İstanbul ve Çevre İllere Profesyonel Motorlu Kurye Çözümleri</p>
+    </footer>
+
+    <!-- Sabit WhatsApp Butonu -->
+    <a href="https://wa.me/905558973449" target="_blank" class="whatsapp-float">
+        💬
+    </a>
+
+    <!-- Fiyat Hesaplama JavaScript Mantığı -->
+    <script>
+        function fiyatHesapla() {
+            let rota = document.getElementById('rota').value;
+            let paketTipi = document.getElementById('paketTipi').value;
+            let bazFiyat = 300;
+
+            // Rota bazlı taban fiyatlar (Örnek rakamlar, dilediğin gibi değiştirebilirsin)
+            if (rota === 'gebze-ici') {
+                bazFiyat = 300;
+            } else if (rota === 'gebze-istanbul-anadolu') {
+                bazFiyat = 850;
+            } else if (rota === 'gebze-istanbul-avrupa') {
+                bazFiyat = 1200;
+            } else if (rota === 'gebze-yalova') {
+                bazFiyat = 950;
+            } else if (rota === 'gebze-sakarya') {
+                bazFiyat = 900;
+            }
+
+            // Paket tipine göre ek ücret
+            if (paketTipi === 'kucuk-kutu') {
+                bazFiyat += 100;
+            } else if (paketTipi === 'acil-vip') {
+                bazFiyat += 250;
+            }
+
+            // Ekrana yazdır
+            document.getElementById('tahminiFiyat').innerText = bazFiyat + " TL";
+
+            // WhatsApp butonunun yönlendirme metnini güncelle
+            let rotaText = document.getElementById('rota').selectedOptions[0].text;
+            let paketText = document.getElementById('paketTipi').selectedOptions[0].text;
+            let whatsappUrl = `https://wa.me/905558973449?text=Merhaba,%20siteden%20fiyat%20hesapladım.%20Güzergah:%20${rotaText},%20Paket:%20${paketText},%20Tahmini%20Tutar:%20${bazFiyat}%20TL.%20Kurye%20çağırmak%20istiyorum.`;
+            
+            document.getElementById('whatsappTeklifBtn').setAttribute('href', whatsappUrl);
+        }
+    </script>
+</body>
+</html>
