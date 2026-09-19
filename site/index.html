@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Süper Portal - Her Şey Elinizin Altında</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-color: #f8fafc;
+            --text-muted: #94a3b8;
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --accent: #ec4899;
+            --success: #10b981;
+            --border: #334155;
+        }
+
+        [data-theme="light"] {
+            --bg-color: #f1f5f9;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --text-muted: #64748b;
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --accent: #db2777;
+            --success: #059669;
+            --border: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            background: var(--card-bg);
+            padding: 20px 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .clock-date {
+            text-align: right;
+        }
+
+        #clock {
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        #date {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .theme-toggle {
+            background: var(--bg-color);
+            border: 1px solid var(--border);
+            color: var(--text-color);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .theme-toggle:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-color);
+        }
+
+        .card-title i {
+            color: var(--primary);
+        }
+
+        /* 1. Hava Durumu */
+        .weather-info {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .temp {
+            font-size: 42px;
+            font-weight: 700;
+        }
+
+        .weather-desc {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        /* 2. Hızlı Notlar */
+        .notes-area {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        #noteInput {
+            width: 100%;
+            height: 80px;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--bg-color);
+            color: var(--text-color);
+            resize: none;
+            outline: none;
+        }
+
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .btn:hover {
+            background: var(--primary-hover);
+        }
+
+        .notes-list {
+            max-height: 120px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin-top: 5px;
+        }
+
+        .note-item {
+            background: var(--bg-color);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .note-item i {
+            color: var(--accent);
+            cursor: pointer;
+        }
+
+        /* 3. Yapılacaklar Listesi (To-Do) */
+        .todo-input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        #todoInput {
+            flex-grow: 1;
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--bg-color);
+            color: var(--text-color);
+            outline: none;
+        }
+
+        .todo-list {
+            max-height: 150px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .todo-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--bg-color);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .todo-item.completed span {
+            text-decoration: line-through;
+            color: var(--text-muted);
+        }
+
+        .todo-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .todo-actions i {
+            cursor: pointer;
+        }
+
+        .fa-check { color: var(--success); }
+        .fa-trash { color: var(--accent); }
+
+        /* 4. Hesap Makinesi */
+        .calc-display {
+            width: 100%;
+            height: 50px;
+            background: var(--bg-color);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-color);
+            font-size: 20px;
+            text-align: right;
+            padding: 0 15px;
+            margin-bottom: 15px;
+            outline: none;
+        }
+
+        .calc-buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+
+        .calc-btn {
+            background: var(--bg-color);
+            border: 1px solid var(--border);
+            color: var(--text-color);
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .calc-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .calc-btn.op {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        /* 5. Sayaç / Pomodoro */
+        .timer-display {
+            font-size: 48px;
+            font-weight: 700;
+            text-align: center;
+            margin: 15px 0;
+            color: var(--primary);
+        }
+
+        .timer-controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        /* 6. Günün Sözü & Motivasyon */
+        .quote-box {
+            font-style: italic;
+            color: var(--text-muted);
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .quote-author {
+            text-align: right;
+            font-weight: 600;
+            font-size: 13px;
+            color: var(--primary);
+        }
+
+        /* 7. Hızlı Linkler / Kısayollar */
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .link-item {
+            background: var(--bg-color);
+            border: 1px solid var(--border);
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            color: var(--text-color);
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+        }
+
+        .link-item:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .link-item i {
+            font-size: 20px;
+            color: var(--primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            .header-right {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .clock-date {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body data-theme="dark">
+
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="logo">
+                <i class="fa-solid fa-layer-group"></i> Süper Portal
+            </div>
+            <div class="header-right">
+                <div class="clock-date">
+                    <div id="clock">00:00:00</div>
+                    <div id="date">19 Eylül 2026</div>
+                </div>
+                <button class="theme-toggle" id="themeToggle" title="Tema Değiştir">
+                    <i class="fa-solid fa-moon" id="themeIcon"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Widgets Grid -->
+        <div class="dashboard-grid">
+            
+            <!-- 1. Hava Durumu Widget -->
+            <div class="card">
+                <div class="card-title"><i class="fa-solid fa-cloud-sun"></i> Hava Durumu</div>
+                <div class="weather-info">
+                    <div>
+                        <div class="temp" id="temp">24°C</div>
+                        <div class="weather-desc" id="weatherDesc">Parçalı Bulutlu, Gebze</div>
+                    </div>
+                    <i class="fa-solid fa-cloud-sun-rain" style="font-size: 48px; color: var(--primary);"></i>
+                </div>
+            </div>
+
+            <!-- 2. Hızlı Notlar Widget -->
+            <div class="card">
+                <div class="card-title"><i class="fa-solid fa-note-sticky"></i> Hızlı Notlar</div>
+                <div class="notes-area">
+                    <textarea id="noteInput" placeholder="Buraya hızlı bir not yaz..."></textarea>
+                    <button class="btn" onclick="addNote()">Not Ekle</button>
+                    <div class="notes-list" id="notesList"></div>
+                </div>
+            </div>
+
+            <!-- 3. Yapılacaklar Listesi Widget -->
+            <div class="card">
+                <div class="card-title"><i class="fa-solid fa-list-check"></i> Yapılacaklar (To-Do)</div>
+                <div class="todo-input-group">
+                    <input type="text" id="todoInput" placeholder="Yeni görev ekle...">
+                    <button class="btn" onclick="addTodo()">Ekle</button>
+                </div>
+                <div class="todo-list" id="todoList"></div>
+            </div>
+
+            <!-- 4. Hesap Makinesi Widget -->
+            <div class="card">
+                <div class="card-title"><i class="fa-solid fa-calculator"></i> Hesap Makinesi</div>
+                <input type="text" class="calc-display" id="calcDisplay" readonly value="0">
+                <div class="calc-buttons">
+                    <button class="calc-btn" onclick="clearCalc()">C</button>
+                    <button class="calc-btn op" onclick="appendCalc('/')">/</button>
+                    <button class="calc-btn op" onclick="appendCalc('*')">×</button>
+                    <button class="calc-btn op" onclick="appendCalc('-')">-</button>
+                    <button class="calc-btn" onclick="appendCalc('7')">7</button>
+                    <button class="calc-btn" onclick="appendCalc('8')">8</button>
+                    <button class="calc-btn" onclick="appendCalc('9')">9</button>
+                    <button class="calc-btn op" onclick="appendCalc('+')">+</button>
+                    <button class="calc-btn" onclick="appendCalc('4')">4</button>
+                    <button class="calc-btn" onclick="appendCalc('5')">5</button>
+                    <button class="calc-btn" onclick="appendCalc('6')">6</button>
+                    <button class="calc-btn op" onclick="calculateResult()" style="grid-row: span 2; background: var(--primary); color: white;">=</button>
+                    <button class="calc-btn" onclick="appendCalc('1')">1</button>
+                    <button class="calc-btn" onclick="appendCalc('2')">2</button>
+                    <button class="calc-btn" onclick="appendCalc('3')">3</button>
+                    <button class="calc-btn" onclick="appendCalc('0')" style="grid-column: span 2;">0</button>
+                    <button class="calc-btn" onclick="appendCalc('.')">.</button>
+                </div>
+            </div>
+
+            <!-- 5. Pomodoro / Sayaç Widget -->
+            <div class="card">
+                <div class="card-title"><i class="fa-solid fa-stopwatch"></i> Çalışma / Odak Sayacı</div>
+                <div class="timer-display" id="timerDisplay">25:00</div>
+                <div class="timer-controls">
+                    <button class="btn" onclick="startTimer()">Başlat</button>
+                    <button class="btn" style="background: var(--accent);" onclick="resetTimer()">Sıfırla</button>
+                </div>
+            </div>
+
+            <!-- 6. Günün Sözü Widget -->
+            <div class="card">
+                <div class="card-title"><i class="fa-solid fa-quote-left"></i> Günün Motivasyonu</div>
+                <div class="quote-box" id="quoteText">"En iyi hazırlık, yarın için bugün elinden gelenin en iyisini yapmaktır."</div>
+                <div class="quote-author" id="quoteAuthor">- H. Jackson Brown Jr.</div>
+                <button class="btn" style="margin-top: auto;" onclick="changeQuote()">Yeni Söz Getir</button>
+            </div>
+
+            <!-- 7. Hızlı Kısayollar Widget -->
+            <div class="card" style="grid-column: span auto;">
+                <div class="card-title"><i class="fa-solid fa-globe"></i> Hızlı Kısayollar</div>
+                <div class="links-grid">
+                    <a href="https://www.google.com" target="_blank" class="link-item">
+                        <i class="fa-brands fa-google"></i> Google
+                    </a>
+                    <a href="https://www.youtube.com" target="_blank" class="link-item">
+                        <i class="fa-brands fa-youtube"></i> YouTube
+                    </a>
+                    <a href="https://github.com" target="_blank" class="link-item">
+                        <i class="fa-brands fa-github"></i> GitHub
+                    </a>
+                    <a href="https://mail.google.com" target="_blank" class="link-item">
+                        <i class="fa-solid fa-envelope"></i> Gmail
+                    </a>
+                    <a href="https://web.whatsapp.com" target="_blank" class="link-item">
+                        <i class="fa-brands fa-whatsapp"></i> WhatsApp
+                    </a>
+                    <a href="https://open.spotify.com" target="_blank" class="link-item">
+                        <i class="fa-brands fa-spotify"></i> Spotify
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        /* 1. Saat ve Tarih */
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('clock').innerText = now.toLocaleTimeString('tr-TR');
+            
+            const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
+            document.getElementById('date').innerText = now.toLocaleDateString('tr-TR', options);
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        /* Tema Değiştirici */
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const body = document.body;
+
+        themeToggle.addEventListener('click', () => {
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.setAttribute('data-theme', 'light');
+                themeIcon.classList.replace('fa-moon', 'fa-sun');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                themeIcon.classList.replace('fa-sun', 'fa-moon');
+            }
+        });
+
+        /* 2. Hızlı Notlar Mantığı */
+        let notes = JSON.parse(localStorage.getItem('portal_notes')) || [];
+        
+        function renderNotes() {
+            const list = document.getElementById('notesList');
+            list.innerHTML = '';
+            notes.forEach((note, index) => {
+                list.innerHTML += `
+                    <div class="note-item">
+                        <span>${note}</span>
+                        <i class="fa-solid fa-trash" onclick="deleteNote(${index})"></i>
+                    </div>
+                `;
+            });
+            localStorage.setItem('portal_notes', JSON.stringify(notes));
+        }
+
+        function addNote() {
+            const input = document.getElementById('noteInput');
+            if (input.value.trim() !== '') {
+                notes.push(input.value.trim());
+                input.value = '';
+                renderNotes();
+            }
+        }
+
+        function deleteNote(index) {
+            notes.splice(index, 1);
+            renderNotes();
+        }
+        renderNotes();
+
+        /* 3. Yapılacaklar Listesi Mantığı */
+        let todos = JSON.parse(localStorage.getItem('portal_todos')) || [];
+
+        function renderTodos() {
+            const list = document.getElementById('todoList');
+            list.innerHTML = '';
+            todos.forEach((todo, index) => {
+                list.innerHTML += `
+                    <div class="todo-item ${todo.completed ? 'completed' : ''}">
+                        <span>${todo.text}</span>
+                        <div class="todo-actions">
+                            <i class="fa-solid fa-check" onclick="toggleTodo(${index})"></i>
+                            <i class="fa-solid fa-trash" onclick="deleteTodo(${index})"></i>
+                        </div>
+                    </div>
+                `;
+            });
+            localStorage.setItem('portal_todos', JSON.stringify(todos));
+        }
+
+        function addTodo() {
+            const input = document.getElementById('todoInput');
+            if (input.value.trim() !== '') {
+                todos.push({ text: input.value.trim(), completed: false });
+                input.value = '';
+                renderTodos();
+            }
+        }
+
+        function toggleTodo(index) {
+            todos[index].completed = !todos[index].completed;
+            renderTodos();
+        }
+
+        function deleteTodo(index) {
+            todos.splice(index, 1);
+            renderTodos();
+        }
+        renderTodos();
+
+        /* 4. Hesap Makinesi Mantığı */
+        let calcInput = '';
+
+        function appendCalc(val) {
+            if (calcInput === '0' && val !== '.') calcInput = '';
+            calcInput += val;
+            document.getElementById('calcDisplay').value = calcInput;
+        }
+
+        function clearCalc() {
+            calcInput = '';
+            document.getElementById('calcDisplay').value = '0';
+        }
+
+        function calculateResult() {
+            try {
+                calcInput = eval(calcInput).toString();
+                document.getElementById('calcDisplay').value = calcInput;
+            } catch (e) {
+                document.getElementById('calcDisplay').value = 'Hata';
+                calcInput = '';
+            }
+        }
+
+        /* 5. Sayaç (Pomodoro) Mantığı */
+        let timerInterval;
+        let timeLeft = 25 * 60;
+        let isRunning = false;
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            document.getElementById('timerDisplay').innerText = 
+                `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        }
+
+        function startTimer() {
+            if (!isRunning) {
+                isRunning = true;
+                timerInterval = setInterval(() => {
+                    if (timeLeft > 0) {
+                        timeLeft--;
+                        updateTimerDisplay();
+                    } else {
+                        clearInterval(timerInterval);
+                        isRunning = false;
+                        alert('Süre bitti! Harika iş çıkardın.');
+                    }
+                }, 1000);
+            }
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            isRunning = false;
+            timeLeft = 25 * 60;
+            updateTimerDisplay();
+        }
+
+        /* 6. Günün Sözü Veritabanı */
+        const quotes = [
+            { text: "En iyi hazırlık, yarın için bugün elinden gelenin en iyisini yapmaktır.", author: "H. Jackson Brown Jr." },
+            { text: "Hayat bisiklete binmek gibidir. Dengede kalmak için hareket etmeye devam etmelisin.", author: "Albert Einstein" },
+            { text: "Gideceğiniz yeri bilmiyorsanız, hangi yoldan gittiğinizin hiçbir önemi yoktur.", author: "Lewis Carroll" },
+            { text: "Başarı, küçük çabaların her gün tekrar tekrar tekrarlanmasıdır.", author: "Robert Collier" },
+            { text: "Düşlediğiniz sürece yaşarsınız.", author: "Mustafa Kemal Atatürk" }
+        ];
+
+        function changeQuote() {
+            const random = Math.floor(Math.random() * quotes.length);
+            document.getElementById('quoteText').innerText = `"${quotes[random].text}"`;
+            document.getElementById('quoteAuthor').innerText = `- ${quotes[random].author}`;
+        }
+    </script>
+</body>
+</html>
